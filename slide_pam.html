@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>السيادة الرقمية: تحديات الذكاء الاصطناعي - أحمد البقالي النيمطة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&family=Amiri:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 1. THE SETUP & MOROCCAN THEME */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #e5e7eb;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            min-height: 100vh;
+            font-family: 'Tajawal', sans-serif;
+            color: #374151;
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #FFF9F1;
+            /* لون "الرمل" الكريمي - Warm Sand */
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 50px 70px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+
+        /* زخرفة مغربية حديثة (Geometric Accent) */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #006241 0%, #1e3a8a 50%, #c2410c 100%);
+            z-index: 10;
+        }
+
+        .slide-container::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: -100px;
+            width: 400px;
+            height: 400px;
+            background-image: radial-gradient(#006241 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.05;
+            z-index: 0;
+            border-radius: 50%;
+        }
+
+        .slide-container>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        h3 {
+            font-family: 'Amiri', serif;
+            color: #006241;
+            /* Emerald Green */
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 64px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .slide-title {
+            font-size: 42px;
+            color: #1e3a8a;
+            /* Majorelle Blue */
+            border-bottom: 3px solid #c2410c;
+            /* Terracotta Accent */
+            padding-bottom: 15px;
+            margin-bottom: 40px;
+            width: 100%;
+        }
+
+        p,
+        li {
+            font-size: 20px;
+            line-height: 1.6;
+            color: #4b5563;
+        }
+
+        .content-area {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* Layouts */
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+        }
+
+        /* Cards & Tiles */
+        .tile {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .tile h3 {
+            color: #1e3a8a;
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+
+        .tile .icon {
+            font-size: 36px;
+            color: #c2410c;
+            margin-bottom: 20px;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #006241;
+            color: white;
+            padding: 20px;
+            font-family: 'Amiri', serif;
+            font-size: 22px;
+            text-align: right;
+        }
+
+        td {
+            background: white;
+            padding: 18px;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 19px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Charts */
+        .chart-bar-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            width: 100%;
+        }
+
+        .bar-group {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .bar-label {
+            width: 200px;
+            font-weight: bold;
+            color: #1e3a8a;
+            font-size: 20px;
+        }
+
+        .bar-track {
+            flex-grow: 1;
+            background: #e5e7eb;
+            height: 40px;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding-right: 15px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Images */
+        .image-wrapper {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border: 4px solid white;
+            height: 400px;
+            width: 100%;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Footer Metadata */
+        .slide-footer {
+            position: absolute;
+            bottom: 20px;
+            left: 70px;
+            font-size: 14px;
+            color: #9ca3af;
+            font-family: 'Tajawal', sans-serif;
+            display: flex;
+            gap: 20px;
+        }
+
+        /* Credentials Badge */
+        .credentials {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .cred-item {
+            background: rgba(0, 98, 65, 0.05);
+            border: 1px solid rgba(0, 98, 65, 0.2);
+            color: #006241;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Slide 1: Title Slide (UPDATED) -->
+    <div class="slide-container" id="slide1">
+        <div
+            style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+            <div
+                style="background: rgba(0, 98, 65, 0.1); color: #006241; padding: 8px 24px; border-radius: 50px; font-weight: bold; margin-bottom: 30px; font-size: 18px;">
+                <i class="fa-solid fa-star-of-life fa-xs ml-2"></i> ندوة السيادة الرقمية: رهانات وآفاق
+            </div>
+            <h1>الجرائم الإلكترونية:<br><span style="color: #1e3a8a;">بين تحديات السيادة وحماية الحقوق</span></h1>
+
+            <div style="margin-top: 40px; border-top: 1px solid #d1d5db; padding-top: 20px; width: 80%;">
+                <h2 style="font-size: 36px; color: #374151; margin-bottom: 15px;">الأستاذ أحمد البقالي النيمطة</h2>
+
+                <div class="credentials">
+                    <span class="cred-item"><i class="fa-solid fa-gavel ml-1"></i> أستاذ بهيئة المحامين بفاس</span>
+                    <span class="cred-item"><i class="fa-solid fa-eye ml-1"></i> رئيس مرصد المحتوى الرقمي</span>
+                    <span class="cred-item"><i class="fa-solid fa-shield-halved ml-1"></i> خبير سيبراني</span>
+                </div>
+                <div class="credentials">
+                    <span class="cred-item"><i class="fa-solid fa-school ml-1"></i> مؤسس معهد المدرسة الدولية الخاصة
+                        للتكنولوجيا</span>
+                    <span class="cred-item"><i class="fa-solid fa-book-open ml-1"></i> باحث دكتوراه</span>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">
+            <span>فاس، المغرب</span> | <span>حزب الأصالة والمعاصرة</span>
+        </div>
+    </div>
+
+    <!-- Slide 2: The Hook -->
+    <div class="slide-container" id="slide2">
+        <h2 class="slide-title">من "اللص التقليدي" إلى "الفيروس الرقمي"</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <!-- Left: Old Crime -->
+                <div class="tile" style="text-align: center; border-bottom: 6px solid #9ca3af;">
+                    <div class="icon" style="color: #6b7280;"><i class="fa-solid fa-user-secret"></i></div>
+                    <h3 style="color: #374151;">الجريمة التقليدية</h3>
+                    <p>تستهدف الممتلكات المادية. تقتحم الأبواب والأسوار. أثرها محدود جغرافياً وزمنياً.</p>
+                </div>
+
+                <!-- Right: New Crime -->
+                <div class="tile" style="text-align: center; border-bottom: 6px solid #c2410c; background: #fff7ed;">
+                    <div class="icon"><i class="fa-solid fa-virus"></i></div>
+                    <h3>الجريمة الإلكترونية</h3>
+                    <p>تستهدف "السيادة" و"الهوية". تقتحم الهواتف والبيانات السيادية. أثرها عابر للحدود ومدمر للثقة
+                        المؤسساتية.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">1/12 | ذ. أحمد البقالي النيمطة</div>
+    </div>
+
+    <!-- Slide 3: Reality Check -->
+    <div class="slide-container" id="slide3">
+        <h2 class="slide-title">واقع الاختراقات: الزلزال الرقمي 2025</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <ul style="list-style: none; padding: 0;">
+                        <li
+                            style="margin-bottom: 30px; background: white; padding: 20px; border-radius: 8px; border-right: 5px solid #c2410c; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                            <strong style="color: #c2410c; display: block; margin-bottom: 5px;">اختراق CNSS:</strong>
+                            تسريب بيانات حساسة لملايين المواطنين (الرواتب، الحسابات البنكية)، مما يضرب الأمن الاجتماعي.
+                        </li>
+                        <li
+                            style="margin-bottom: 30px; background: white; padding: 20px; border-radius: 8px; border-right: 5px solid #1e3a8a; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                            <strong style="color: #1e3a8a; display: block; margin-bottom: 5px;">استهداف
+                                الموثقين:</strong>
+                            تسريب وثائق الملكية والهويات، مما يهدد الأمن التعاقدي ويفتح الباب أمام "مافيا العقار
+                            الرقمية".
+                        </li>
+                    </ul>
+                    <div style="margin-top: 20px; font-weight: bold; color: #006241;">
+                        <i class="fa-solid fa-triangle-exclamation"></i> النتيجة: المجرم يملك "المادة الخام" لصناعة هوية
+                        مزيفة.
+                    </div>
+                </div>
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1563206767-5b18f218e8de?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                        alt="صورة رقمية تعبر عن سرقة الهوية واختراق البيانات">
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">2/12 | ذ. أحمد البقالي النيمطة</div>
+    </div>
+
+    <!-- Slide 4: Three Foundations -->
+    <div class="slide-container" id="slide4">
+        <h2 class="slide-title">الأسس الثلاثة للسيادة الرقمية الوطنية</h2>
+        <div class="content-area">
+            <p style="margin-bottom: 40px;">بصفتي خبيراً سيبرانياً ورجل قانون، أرى أن السيادة ترتكز على:</p>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; height: 350px;">
+                <div class="tile"
+                    style="text-align: center; border-top: 6px solid #006241; display: flex; flex-direction: column; justify-content: start;">
+                    <div class="icon" style="color: #006241;"><i class="fa-solid fa-server"></i></div>
+                    <h3 style="color: #006241;">1. السيادة التقنية</h3>
+                    <p style="font-size: 18px;">امتلاك مراكز البيانات الوطنية (Cloud Souverain)، والتحكم في البنية
+                        التحتية والبرمجيات.</p>
+                </div>
+                <div class="tile"
+                    style="text-align: center; border-top: 6px solid #1e3a8a; display: flex; flex-direction: column; justify-content: start;">
+                    <div class="icon" style="color: #1e3a8a;"><i class="fa-solid fa-scale-balanced"></i></div>
+                    <h3 style="color: #1e3a8a;">2. السيادة القانونية</h3>
+                    <p style="font-size: 18px;">ترسانة قانونية قوية تحمي البيانات وتفرض سلطة الدولة داخل الحدود الرقمية.
+                    </p>
+                </div>
+                <div class="tile"
+                    style="text-align: center; border-top: 6px solid #c2410c; display: flex; flex-direction: column; justify-content: start;">
+                    <div class="icon" style="color: #c2410c;"><i class="fa-solid fa-users-gear"></i></div>
+                    <h3 style="color: #c2410c;">3. السيادة البشرية</h3>
+                    <p style="font-size: 18px;">تكوين الكفاءات الوطنية في الأمن السيبراني لخدمة الاقتصاد الوطني (النموذج
+                        الذي نشتغل عليه في معهد التكنولوجيا).</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">3/12 | ذ. أحمد البقالي النيمطة</div>
+    </div>
+
+    <!-- Slide 5: Digital Customs -->
+    <div class="slide-container" id="slide5">
+        <h2 class="slide-title">الجمارك الرقمية: حارس "الحدود" غير المرئية</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3 style="color: #c2410c; margin-bottom: 20px;">تغير طبيعة التهريب</h3>
+                    <p style="margin-bottom: 20px;">
+                        في عصر الذكاء الاصطناعي، لم يعد "التهريب" يقتصر على السلع المادية عبر الموانئ. نحن نواجه اليوم:
+                    </p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 15px; display: flex; align-items: center;">
+                            <i class="fa-solid fa-caret-left" style="color: #006241; margin-left: 10px;"></i>
+                            <span><strong>تهريب البيانات:</strong> إخراج المعلومات الحساسة عبر ثغرات مشفرة.</span>
+                        </li>
+                        <li style="margin-bottom: 15px; display: flex; align-items: center;">
+                            <i class="fa-solid fa-caret-left" style="color: #006241; margin-left: 10px;"></i>
+                            <span><strong>تزوير الهوية البيومترية:</strong> استخدام الـ Deepfakes لاختراق بوابات التحقق
+                                الرقمي في المطارات والحدود.</span>
+                        </li>
+                    </ul>
+                    <div
+                        style="background: #fff7ed; padding: 15px; border-radius: 8px; border-right: 4px solid #c2410c; margin-top: 20px;">
+                        <strong>الحاجة الملحة:</strong> نظام "جمارك رقمية" يفحص <span style="color: #c2410c;">تدفق
+                            البيانات</span> بنفس دقة فحص الحاويات.
+                    </div>
+                </div>
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                        alt="صورة رمزية لمفهوم الجمارك الرقمية والدرع السيبراني">
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">4/12 | ذ. أحمد البقالي النيمطة</div>
+    </div>
+
+    <!-- Slide 6: AI Sovereignty -->
+    <div class="slide-container" id="slide6">
+        <h2 class="slide-title">الحدود الرقمية: معضلة "الصندوق الأسود"</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                        alt="الذكاء الاصطناعي والخوارزميات كحارس للحدود الرقمية">
+                </div>
+                <div>
+                    <h3 style="color: #1e3a8a; margin-bottom: 20px;">من يملك مفاتيح البوابة؟</h3>
+                    <p style="margin-bottom: 20px;">
+                        استخدام الذكاء الاصطناعي لحماية الحدود الرقمية ضرورة، لكن الاعتماد على خوارزميات أجنبية يخلق
+                        خطراً سيادياً:
+                    </p>
+                    <div class="tile" style="padding: 20px; border-right: 5px solid #1e3a8a; background: #eff6ff;">
+                        <h4 style="margin: 0 0 10px 0; color: #1e3a8a;">تحدي الصندوق الأسود (Black Box)</h4>
+                        <p style="font-size: 18px; margin: 0;">
+                            إذا كنا لا نملك "الكود المصدري" للخوارزمية التي تحمي حدودنا، فنحن لا نملك السيادة الكاملة.
+                            قد تحتوي هذه الأنظمة على "أبواب خلفية" (Backdoors) غير مرئية.
+                        </p>
+                    </div>
+                    <p style="margin-top: 20px; font-weight: bold; color: #006241;">
+                        <i class="fa-solid fa-key"></i> الحل: تطوير "خوارزميات مغربية" أو "نظم مفتوحة المصدر" تحت سيطرة
+                        الدولة.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">5/12 | ذ. أحمد البقالي النيمطة</div>
+    </div>
+
+    <!-- Slide 7: Data Sovereignty Chart -->
+    <div class="slide-container" id="slide7">
+        <h2 class="slide-title">تحدي توطين البيانات: أين تعيش معلومات المغاربة؟</h2>
+        <div class="content-area">
+            <p style="margin-bottom: 40px;">التحدي الأكبر للسيادة هو "مكان التخزين". عندما تكون الخوادم خارج الحدود،
+                تصبح القوانين الوطنية غير ذات جدوى.</p>
+            <div class="chart-bar-container">
+                <div class="bar-group">
+                    <div class="bar-label">سيرفرات خارجية</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 65%; background: linear-gradient(90deg, #c2410c, #ea580c);">
+                            65% (خطر سيادي)</div>
+                    </div>
+                </div>
+                <div class="bar-group">
+                    <div class="bar-label">سيرفرات وطنية</div>
+                    <div class="bar-track">
+                        <div class="bar-fill" style="width: 35%; background: linear-gradient(90deg, #006241, #059669);">
+                            35% (سيادة محدودة)</div>
+                    </div>
+                </div>
+            </div>
+            <div
+                style="margin-top: 50px; padding: 20px; background: #eff6ff; border-radius: 8px; border: 1px solid #dbeafe; text-align: center;">
+                <strong style="color: #1e3a8a;">الهدف الاستراتيجي 2030:</strong> الوصول إلى 80% من توطين البيانات
+                الحساسة داخل التراب الوطني.
+            </div>
+        </div>
+        <div class="slide-footer">6/12 | ذ. أحمد البقالي النيمطة</div>
+    </div>
+
+    <!-- Slide 8: Legal Framework -->
+    <div class="slide-container" id="slide8">
+        <h2 class="slide-title">قراءة نقدية في الترسانة القانونية (DGSSI)</h2>
+        <div class="content-area">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="20%">القانون</th>
+                        <th width="30%">المجال</th>
+                        <th width="50%">تحليل الفجوات والرهانات</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>09-08</strong></td>
+                        <td>حماية المعطيات الشخصية</td>
+                        <td><span style="color: #c2410c;">متقادم (2009).</span> يحتاج لملاءمة فورية مع GDPR ورفع
+                            العقوبات لتكون رادعة للشركات العملاقة.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>05-20</strong></td>
+                        <td>الأمن السيبراني</td>
+                        <td>يحمي المؤسسات الحيوية للدولة، لكنه <span style="color: #c2410c;">يستثني القطاع الخاص والمهن
+                                الحرة</span> (الموثقين) مما يخلق ثغرات.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>43-20</strong></td>
+                        <td>خدمات الثقة</td>
+                        <td>يمثل قفزة نوعية نحو "الهوية الرقمية" والتوقيع الإلكتروني، لكنه يتطلب بنية تحتية آمنة
+                            للتفعيل.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="slide-footer">7/12 | ذ. أحمد البقالي النيمطة</div>
+    </div>
+
+    <!-- Slide 9: The Dilemma -->
+    <div class="slide-container" id="slide9">
+        <h2 class="slide-title">المعادلة الصعبة: الأمن مقابل الحرية</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div class="image-wrapper" style="height: 350px;">
+                    <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                        alt="ميزان العدالة الرقمية بين الأمن والخصوصية">
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 20px; color: #1e3a8a;">الموازنة الدستورية (الفصل 24)</h3>
+                    <p>بصفتي رجل قانون، أطرح الإشكالية الجوهرية:</p>
+                    <div style="margin-top: 20px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                            <i class="fa-solid fa-shield-halved"
+                                style="color: #006241; font-size: 24px; margin-left: 15px;"></i>
+                            <span>كيف نلاحق المجرم دون أن نتحول لمجتمع مراقبة؟</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                            <i class="fa-solid fa-user-lock"
+                                style="color: #006241; font-size: 24px; margin-left: 15px;"></i>
+                            <span>كيف نحمي الدولة دون انتهاك خصوصية البريء؟</span>
+                        </div>
+                    </div>
+                    <div
+                        style="margin-top: 30px; background: #006241; color: white; padding: 15px; border-radius: 8px; text-align: center;">
+                        الحل: <strong>"القانون الذكي"</strong> الذي يوازن بين الردع والضمانات.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">8/12 | ذ. أحمد البقالي النيمطة</div>
+    </div>
+
+    <!-- Slide 10: State Efforts -->
+    <div class="slide-container" id="slide10">
+        <h2 class="slide-title">تثمين المجهودات: الأمن التشاركي</h2>
+        <div class="content-area">
+            <p style="margin-bottom: 30px;">ننتقل من "الأمن الدفاعي" إلى "الأمن التشاركي" عبر منصات وطنية رائدة:</p>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;">
+                <!-- Card 1 -->
+                <div class="tile" style="text-align: center; border-top: 5px solid #006241;">
+                    <div class="icon"><i class="fa-solid fa-bullhorn"></i></div>
+                    <h3>e-blagh.ma</h3>
+                    <p style="font-size: 18px;">منصة للتبليغ عن المحتوى الإجرامي (الابتزاز، الإرهاب). تكسر حاجز الصمت.
+                    </p>
+                </div>
+                <!-- Card 2 -->
+                <div class="tile" style="text-align: center; border-top: 5px solid #1e3a8a;">
+                    <div class="icon" style="color: #1e3a8a;"><i class="fa-solid fa-child-reaching"></i></div>
+                    <h3>e-himaya.gov.ma</h3>
+                    <p style="font-size: 18px;">بوابة لتحصين الأطفال والناشئة وتوعية الأسر بمخاطر الإنترنت.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="tile" style="text-align: center; border-top: 5px solid #c2410c;">
+                    <div class="icon"><i class="fa-solid fa-headset"></i></div>
+                    <h3>evigilance.ma</h3>
+                    <p style="font-size: 18px;">خط مساعدة وطني ودعم تقني وقانوني لضحايا العنف السيبراني.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-footer">9/12 | ذ. أحمد البقالي النيمطة</div>
+    </div>
+
+    <!-- Slide 11: Recommendations -->
+    <div class="slide-container" id="slide11">
+        <h2 class="slide-title">توصيات استراتيجية: نحو سيادة رقمية مواطنة</h2>
+        <div class="content-area">
+            <div
+                style="background: white; border-radius: 12px; padding: 40px; border: 1px solid #e5e7eb; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);">
+                <ul style="list-style: none; padding: 0;">
+                    <li style="margin-bottom: 25px; display: flex; align-items: start;">
+                        <i class="fa-solid fa-1"
+                            style="background: #006241; color: white; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin-left: 15px; flex-shrink: 0;"></i>
+                        <span><strong>قانون إطار موحد (Digital X.0):</strong> إنهاء تشتت النصوص القانونية ووضع مظلة
+                            تشريعية شاملة تؤطر الذكاء الاصطناعي.</span>
+                    </li>
+                    <li style="margin-bottom: 25px; display: flex; align-items: start;">
+                        <i class="fa-solid fa-2"
+                            style="background: #1e3a8a; color: white; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin-left: 15px; flex-shrink: 0;"></i>
+                        <span><strong>توسيع الإلزامية:</strong> شمول المهن الحرة (الموثقين، المحامين) بقواعد الأمن
+                            السيبراني الصارمة، لأنهم "خط الدفاع الأول".</span>
+                    </li>
+                    <li style="margin-bottom: 0px; display: flex; align-items: start;">
+                        <i class="fa-solid fa-3"
+                            style="background: #c2410c; color: white; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 50%; margin-left: 15px; flex-shrink: 0;"></i>
+                        <span><strong>مبدأ الإبلاغ الإلزامي:</strong> فرض عقوبات على المؤسسات التي تخفي اختراقات بيانات
+                            المواطنين، لتمكين الضحايا من حماية أنفسهم.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="slide-footer">10/12 | ذ. أحمد البقالي النيمطة</div>
+    </div>
+
+    <!-- Slide 12: Conclusion -->
+    <div class="slide-container" id="slide12" style="background-color: #006241; color: white;">
+        <div
+            style="height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+            <i class="fa-solid fa-quote-right"
+                style="font-size: 60px; color: rgba(255,255,255,0.2); margin-bottom: 30px;"></i>
+            <blockquote
+                style="font-family: 'Amiri', serif; font-size: 48px; line-height: 1.4; max-width: 900px; margin: 0;">
+                "السيادة الرقمية الحقيقية ليست مجرد خوارزميات، بل هي كرامة وطنية نُحصنها بالقانون، ونحميها بالتقنية،
+                ونُرسخها بالوعي."
+            </blockquote>
+            <div style="margin-top: 60px; font-size: 24px; opacity: 0.9;">
+                شكراً لحسن انتباهكم
+            </div>
+            <div style="margin-top: 20px; font-size: 22px; font-weight: bold; color: #fbbf24;">
+                الأستاذ أحمد البقالي النيمطة
+            </div>
+            <div style="margin-top: 10px; font-size: 16px; opacity: 0.8;">
+                رئيس مرصد المحتوى الرقمي | خبير سيبراني
+            </div>
+        </div>
+        <div class="slide-footer" style="color: rgba(255,255,255,0.5);">11/12</div>
+    </div>
+
+</body>
+
+</html>
