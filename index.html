@@ -4,458 +4,990 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>السيادة الرقمية: لوحة القيادة التفاعلية</title>
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <!-- FontAwesome for Icons (No SVG tags directly) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>أحمد البقالي النيمطة | محامٍ وخبير سيبراني</title>
+    <meta name="description"
+        content="الموقع الشخصي للأستاذ أحمد البقالي النيمطة - محامٍ بهيئة فاس، رئيس مرصد المحتوى الرقمي، خبير سيبراني، مؤسس المعهد الدولي الخاص للتكنولوجيا">
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap"
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Amiri:wght@400;700&display=swap"
         rel="stylesheet">
 
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
+        :root {
+            --emerald: #006241;
+            --emerald-light: #059669;
+            --majorelle: #1e3a8a;
+            --majorelle-light: #3b82f6;
+            --terracotta: #c2410c;
+            --terracotta-light: #ea580c;
+            --sand: #FFF9F1;
+            --sand-dark: #f5f0e8;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Tajawal', sans-serif;
-            background-color: #f5f5f4;
-            /* Stone 100 - Warm Neutral */
+            background-color: var(--sand);
+            color: var(--text-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .chart-container {
+        /* ====== HERO SECTION ====== */
+        .hero {
+            background: linear-gradient(135deg, var(--emerald) 0%, #004d33 50%, var(--majorelle) 100%);
+            min-height: 520px;
             position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 400px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
         }
 
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(194, 65, 12, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .hero-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        .hero-avatar {
+            flex-shrink: 0;
+        }
+
+        .avatar-ring {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--terracotta), #fbbf24, var(--emerald-light));
+            padding: 5px;
+            box-shadow: 0 0 60px rgba(0, 0, 0, 0.3);
+            animation: pulse-ring 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-ring {
+
+            0%,
+            100% {
+                box-shadow: 0 0 30px rgba(194, 65, 12, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 60px rgba(194, 65, 12, 0.5);
             }
         }
 
-        /* Custom Range Slider Styling */
-        input[type=range] {
-            -webkit-appearance: none;
-            background: transparent;
-        }
-
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 24px;
-            width: 24px;
-            border-radius: 50%;
-            background: #1e3a8a;
-            /* Blue 900 */
-            cursor: pointer;
-            margin-top: -10px;
-            box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-        }
-
-        input[type=range]::-webkit-slider-runnable-track {
+        .avatar-inner {
             width: 100%;
-            height: 4px;
-            cursor: pointer;
-            background: #d6d3d1;
-            /* Stone 300 */
-            border-radius: 1.3px;
+            height: 100%;
+            border-radius: 50%;
+            background: var(--emerald);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 72px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-text {
+            color: white;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-name {
+            font-family: 'Amiri', serif;
+            font-size: 52px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 8px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-title {
+            font-size: 22px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 24px;
+            font-weight: 300;
+        }
+
+        .hero-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
+
+        .hero-tag:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .hero-socials {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .social-link {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: white;
+            color: var(--emerald);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ====== NAV STRIP ====== */
+        .nav-strip {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+        }
+
+        .nav-link {
+            padding: 16px 24px;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--emerald);
+            border-bottom-color: var(--emerald);
+        }
+
+        /* ====== MAIN CONTENT ====== */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 40px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 30px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .section-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-family: 'Amiri', serif;
+            font-size: 30px;
+            color: var(--text-primary);
+        }
+
+        /* ====== ABOUT ====== */
+        .about-text {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.9;
+            max-width: 900px;
+        }
+
+        .about-text strong {
+            color: var(--emerald);
+        }
+
+        /* ====== EXPERIENCE TIMELINE ====== */
+        .timeline {
+            position: relative;
+            padding-right: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            right: 12px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--emerald), var(--majorelle), var(--terracotta));
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 36px;
+            background: white;
+            border-radius: 16px;
+            padding: 28px 32px;
+            border: 1px solid var(--border);
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateX(-4px);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            right: -34px;
+            top: 32px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--emerald);
+            border: 3px solid var(--sand);
+            box-shadow: 0 0 0 3px var(--emerald);
+        }
+
+        .timeline-item:nth-child(2)::before {
+            background: var(--majorelle);
+            box-shadow: 0 0 0 3px var(--majorelle);
+        }
+
+        .timeline-item:nth-child(3)::before {
+            background: var(--terracotta);
+            box-shadow: 0 0 0 3px var(--terracotta);
+        }
+
+        .timeline-item:nth-child(4)::before {
+            background: #7c3aed;
+            box-shadow: 0 0 0 3px #7c3aed;
+        }
+
+        .timeline-role {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .timeline-company {
+            font-size: 16px;
+            color: var(--emerald);
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .timeline-date {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .timeline-desc {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* ====== SKILLS ====== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: white;
+            border-radius: 14px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-4px);
+        }
+
+        .skill-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+
+        .skill-card h4 {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .skill-tag {
+            background: var(--sand-dark);
+            color: var(--text-secondary);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        /* ====== CONTRIBUTIONS / PROJECTS ====== */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .project-card:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-6px);
+        }
+
+        .project-card-top {
+            height: 8px;
+        }
+
+        .project-card-body {
+            padding: 28px;
+        }
+
+        .project-card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 18px;
+        }
+
+        .project-card h3 {
+            font-size: 19px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .project-card p {
+            font-size: 15px;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .project-link {
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.2s ease;
+        }
+
+        .project-card:hover .project-link {
+            gap: 10px;
+        }
+
+        /* ====== EDUCATION ====== */
+        .edu-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px;
+        }
+
+        .edu-card {
+            background: white;
+            border-radius: 14px;
+            padding: 28px;
+            border: 1px solid var(--border);
+            box-shadow: var(--card-shadow);
+            display: flex;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .edu-card:hover {
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .edu-icon-box {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .edu-card h4 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .edu-card .edu-school {
+            font-size: 14px;
+            color: var(--emerald);
+            font-weight: 500;
+        }
+
+        .edu-card .edu-date {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ====== FOOTER ====== */
+        .site-footer {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 50px 40px;
+            text-align: center;
+        }
+
+        .footer-name {
+            font-family: 'Amiri', serif;
+            font-size: 24px;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 768px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 20px;
+                gap: 30px;
+            }
+
+            .hero-name {
+                font-size: 36px;
+            }
+
+            .hero-title {
+                font-size: 18px;
+            }
+
+            .hero-tags {
+                justify-content: center;
+            }
+
+            .hero-socials {
+                justify-content: center;
+            }
+
+            .main-container {
+                padding: 30px 20px;
+            }
+
+            .nav-inner {
+                padding: 0 20px;
+            }
+
+            .timeline {
+                padding-right: 30px;
+            }
+
+            .avatar-ring {
+                width: 140px;
+                height: 140px;
+            }
+
+            .avatar-inner {
+                font-size: 56px;
+            }
+
+            .projects-grid,
+            .edu-cards,
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
-
 </head>
 
-<body class="text-slate-800 antialiased selection:bg-blue-100 selection:text-blue-900">
+<body>
 
-    <!-- Navigation / Header -->
-    <nav class="bg-white shadow-sm border-b border-stone-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <i class="fa-solid fa-shield-halved text-blue-900 text-2xl ml-3"></i>
-                    <div>
-                        <h1 class="font-bold text-xl text-slate-800">السيادة الرقمية: رهانات وآفاق</h1>
-                        <p class="text-xs text-stone-500 hidden sm:block">ندوة وطنية - مداخلة الأستاذ أحمد البقالي
-                            النمطة</p>
+    <!-- ====== HERO ====== -->
+    <header class="hero">
+        <div class="hero-pattern"></div>
+        <div class="hero-content">
+            <div class="hero-avatar">
+                <div class="avatar-ring">
+                    <div class="avatar-inner">
+                        <i class="fa-solid fa-user-tie"></i>
                     </div>
                 </div>
-                <div class="flex items-center space-x-4 space-x-reverse">
-                    <span
-                        class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded border border-blue-400">حماية
-                        الحقوق</span>
-                    <span
-                        class="bg-stone-100 text-stone-800 text-xs font-semibold px-2.5 py-0.5 rounded border border-stone-400">السيادة
-                        الوطنية</span>
+            </div>
+            <div class="hero-text">
+                <div class="hero-badge">
+                    <i class="fa-solid fa-location-dot"></i>
+                    فاس، المغرب
+                </div>
+                <h1 class="hero-name">أحمد البقالي النيمطة</h1>
+                <p class="hero-title">محامٍ بهيئة فاس | خبير سيبراني | رئيس مرصد المحتوى الرقمي</p>
+                <div class="hero-tags">
+                    <span class="hero-tag"><i class="fa-solid fa-gavel"></i> القانون الرقمي</span>
+                    <span class="hero-tag"><i class="fa-solid fa-shield-halved"></i> الأمن السيبراني</span>
+                    <span class="hero-tag"><i class="fa-solid fa-microchip"></i> التكنولوجيا</span>
+                    <span class="hero-tag"><i class="fa-solid fa-graduation-cap"></i> باحث دكتوراه</span>
+                </div>
+                <div class="hero-socials">
+                    <a href="https://ma.linkedin.com/in/ahmed-%D8%A3%D8%AD%D9%85%D8%AF-namita-%D8%A7%D9%84%D9%86%D9%85%D9%8A%D8%B7%D8%A9-547a7588"
+                        target="_blank" class="social-link" title="LinkedIn"><i
+                            class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="https://github.com/alfahmed1981" target="_blank" class="social-link" title="GitHub"><i
+                            class="fa-brands fa-github"></i></a>
+                    <a href="https://fesnews.media" target="_blank" class="social-link" title="فاس نيوز"><i
+                            class="fa-solid fa-newspaper"></i></a>
                 </div>
             </div>
         </div>
+    </header>
+
+    <!-- ====== NAV ====== -->
+    <nav class="nav-strip">
+        <div class="nav-inner">
+            <a href="#about" class="nav-link active"><i class="fa-solid fa-user fa-sm"></i> نبذة</a>
+            <a href="#experience" class="nav-link"><i class="fa-solid fa-briefcase fa-sm"></i> الخبرات</a>
+            <a href="#skills" class="nav-link"><i class="fa-solid fa-chart-simple fa-sm"></i> المهارات</a>
+            <a href="#projects" class="nav-link"><i class="fa-solid fa-diagram-project fa-sm"></i> المساهمات</a>
+            <a href="#education" class="nav-link"><i class="fa-solid fa-graduation-cap fa-sm"></i> التعليم</a>
+        </div>
     </nav>
 
-    <!-- Main Content Container -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+    <!-- ====== MAIN ====== -->
+    <main class="main-container">
 
-        <!-- Section 1: The Persona & The Hook -->
-        <section class="bg-white rounded-2xl shadow-sm border border-stone-200 overflow-hidden">
-            <div class="md:flex">
-                <div
-                    class="md:w-1/3 bg-stone-100 p-8 flex flex-col justify-center items-center text-center border-l border-stone-200">
-                    <div class="w-24 h-24 bg-blue-900 rounded-full flex items-center justify-center mb-4 shadow-md">
-                        <i class="fa-solid fa-user-tie text-4xl text-white"></i>
-                    </div>
-                    <h2 class="text-xl font-bold text-slate-900">أحمد البقالي النمطة</h2>
-                    <p class="text-sm text-slate-600 mt-2">محامٍ، باحث دكتوراه، خبير تقني</p>
-                    <div class="mt-4 flex space-x-2 space-x-reverse justify-center">
-                        <span class="text-xs bg-white px-2 py-1 rounded shadow-sm border">قانون</span>
-                        <span class="text-xs bg-white px-2 py-1 rounded shadow-sm border">تكنولوجيا</span>
-                        <span class="text-xs bg-white px-2 py-1 rounded shadow-sm border">مجتمع مدني</span>
-                    </div>
-                </div>
-                <div class="md:w-2/3 p-8">
-                    <h3 class="text-2xl font-bold text-slate-800 mb-4">من "لص المنازل" إلى "فيروس السيادة"</h3>
-                    <p class="text-lg text-slate-600 leading-relaxed mb-6">
-                        في الماضي، كانت الجريمة واضحة: لص يكسر باباً ويسرق مالاً. اليوم، الجريمة صامتة. فيروس إلكتروني
-                        لا يسرق مالك فقط، بل يسرق <strong>هويتك</strong>، ويخترق <strong>سيادة دولتك</strong>. لم تعد
-                        الحدود هي الأسلاك الشائكة، بل أصبحت <span class="text-blue-700 font-bold">"حدوداً رقمية"</span>
-                        تحدد أين تُخزّن بياناتنا ومن يملك مفاتيحها.
-                    </p>
-                    <div class="bg-blue-50 border-r-4 border-blue-900 p-4 rounded-l">
-                        <p class="font-semibold text-blue-900">
-                            <i class="fa-solid fa-lightbulb ml-2"></i>
-                            الهدف الجوهري:
-                        </p>
-                        <p class="text-slate-700">كيف نحمي أمن الدولة (السيادة) دون أن ندوس على حرية المواطن (الحقوق)؟
-                        </p>
-                    </div>
-                </div>
+        <!-- ABOUT -->
+        <section class="section" id="about">
+            <div class="section-header">
+                <div class="section-icon" style="background: var(--emerald);"><i class="fa-solid fa-user"></i></div>
+                <h2 class="section-title">نبذة عني</h2>
             </div>
-        </section>
-
-        <!-- Section 2: Data & Reality (Visualizations) -->
-        <section>
-            <div class="mb-6">
-                <h2 class="text-2xl font-bold text-slate-800 flex items-center">
-                    <i class="fa-solid fa-chart-pie ml-3 text-red-600"></i>
-                    واقع التهديد والحدود الرقمية
-                </h2>
-                <p class="text-stone-600 mt-2 max-w-3xl">
-                    لفهم خطورة الوضع، يجب أن ننظر إلى الأرقام والحوادث الواقعية. الاختراقات الأخيرة (مثل بيانات الضمان
-                    الاجتماعي والموثقين) ليست مجرد أخبار تقنية، بل هي مساس مباشر بالأمن القومي والهوية الرقمية للمغاربة.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Chart 1: The Breach Impact -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
-                    <h3 class="text-lg font-bold text-slate-800 mb-2">تأثير اختراق البيانات الشخصية</h3>
-                    <p class="text-sm text-stone-500 mb-4">محاكاة لمخاطر اختراق قواعد بيانات حساسة (CNSS، الموثقين)</p>
-
-                    <div class="chart-container">
-                        <canvas id="breachImpactChart"></canvas>
-                    </div>
-
-                    <div class="mt-4 bg-red-50 p-3 rounded border border-red-100 text-sm text-red-800">
-                        <i class="fa-solid fa-circle-exclamation ml-1"></i>
-                        <strong>الخطر الداهم:</strong> سرقة البيانات تمكن المجرم من "صناعة هوية رقمية وواقعية" للمواطن،
-                        مما يسهل الجرائم المتسلسلة.
-                    </div>
-                </div>
-
-                <!-- Chart 2: Digital Sovereignty -->
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
-                    <h3 class="text-lg font-bold text-slate-800 mb-2">معضلة السيادة: أين تعيش بياناتنا؟</h3>
-                    <p class="text-sm text-stone-500 mb-4">تقدير لمواقع تخزين البيانات وتحدي "السيرفرات الخارجية"</p>
-
-                    <div class="chart-container">
-                        <canvas id="sovereigntyChart"></canvas>
-                    </div>
-
-                    <div class="mt-4 bg-stone-50 p-3 rounded border border-stone-200 text-sm text-stone-700">
-                        <i class="fa-solid fa-server ml-1"></i>
-                        <strong>السيادة المنقوصة:</strong> عندما تُدار بياناتنا في خوادم خارج الحدود، فإن القوانين
-                        الوطنية قد تصبح عاجزة عن الحماية والملاحقة.
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 3: The Interactive Dilemma (Security vs Rights) -->
-        <section class="bg-slate-900 rounded-2xl shadow-lg p-8 text-white relative overflow-hidden">
-            <!-- Background Decoration -->
-            <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-                <i class="fa-solid fa-fingerprint absolute top-10 left-10 text-9xl"></i>
-                <i class="fa-solid fa-gavel absolute bottom-10 right-10 text-9xl"></i>
-            </div>
-
-            <div class="relative z-10">
-                <h2 class="text-2xl font-bold mb-4 text-center">المعادلة الصعبة: الأمن مقابل الحرية</h2>
-                <p class="text-center text-slate-300 mb-8 max-w-2xl mx-auto">
-                    بصفتي رجل قانون، هذه هي المعضلة الكبرى. استخدم المؤشر أدناه لاستكشاف التوازن الدقيق بين القبضة
-                    الأمنية وحماية الخصوصية، والوصول إلى الحل المنشود.
-                </p>
-
-                <!-- Interactive Slider -->
-                <div class="max-w-3xl mx-auto bg-slate-800 p-6 rounded-xl border border-slate-700">
-                    <div class="flex justify-between mb-2 text-sm font-semibold text-slate-400">
-                        <span>حرية مطلقة (فوضى)</span>
-                        <span>توازن (قانون ذكي)</span>
-                        <span>أمن مطلق (تضييق)</span>
-                    </div>
-
-                    <input type="range" min="0" max="100" value="50"
-                        class="w-full h-2 bg-slate-600 rounded-lg appearance-none cursor-pointer" id="balanceSlider">
-
-                    <div id="sliderFeedback"
-                        class="mt-6 p-4 bg-slate-700 rounded-lg border-r-4 border-blue-500 transition-all duration-300">
-                        <h4 class="font-bold text-lg text-blue-300 mb-1" id="feedbackTitle">القانون الذكي</h4>
-                        <p class="text-slate-200" id="feedbackText">
-                            الوضع المثالي: حماية سيادة الدولة وملاحقة المجرمين، مع ضمانات قانونية صارمة تحمي بيانات
-                            الأبرياء وحرياتهم. هذا ما نسعى إليه.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 4: Legislation & Solutions -->
-        <section>
-            <div class="mb-6">
-                <h2 class="text-2xl font-bold text-slate-800 flex items-center">
-                    <i class="fa-solid fa-file-contract ml-3 text-teal-600"></i>
-                    الحلول التشريعية والتقنية
-                </h2>
-                <p class="text-stone-600 mt-2">
-                    لا يمكن الاكتفاء بتشخيص المشكلة. يجب تثمين المجهودات الوطنية الموجودة، وفي نفس الوقت الدعوة لتجويد
-                    الترسانة القانونية (DGSSI) لتواكب التطور المتسارع للجريمة.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Card 1: Critique -->
-                <div
-                    class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
-                    <div
-                        class="w-12 h-12 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mb-4">
-                        <i class="fa-solid fa-scale-unbalanced text-xl"></i>
-                    </div>
-                    <h3 class="font-bold text-slate-800 mb-2">تجويد التشريع</h3>
-                    <p class="text-sm text-stone-600 mb-4">
-                        نقاط ضعف التشريع الحالي تتطلب مراجعة شاملة لمنح "نظرة شمولية". القوانين الحالية قد تكون مجزأة
-                        ولا تغطي كافة جوانب الهوية الرقمية المستحدثة.
-                    </p>
-                    <a href="https://www.dgssi.gov.ma/ar/textes-legislatifs-et-reglementaires" target="_blank"
-                        class="text-blue-600 text-sm hover:underline font-semibold">
-                        راجع نصوص DGSSI <i class="fa-solid fa-arrow-left mr-1 text-xs"></i>
-                    </a>
-                </div>
-
-                <!-- Card 2: Solution (e-blagh) -->
-                <div
-                    class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
-                    <div class="w-12 h-12 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center mb-4">
-                        <i class="fa-solid fa-bullhorn text-xl"></i>
-                    </div>
-                    <h3 class="font-bold text-slate-800 mb-2">منصة إبلاغ</h3>
-                    <p class="text-sm text-stone-600 mb-4">
-                        آلية وطنية تشاركية تمكن المواطنين من الإبلاغ عن المحتوى الرقمي الإجرامي والعنيف، مما يعزز الأمن
-                        الرقمي المجتمعي.
-                    </p>
-                    <a href="https://e-blagh.ma/" target="_blank"
-                        class="text-teal-600 text-sm hover:underline font-semibold">
-                        زيارة المنصة <i class="fa-solid fa-arrow-up-right-from-square mr-1 text-xs"></i>
-                    </a>
-                </div>
-
-                <!-- Card 3: Solution (e-himaya) -->
-                <div
-                    class="bg-white p-6 rounded-xl shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
-                    <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mb-4">
-                        <i class="fa-solid fa-shield-cat text-xl"></i>
-                    </div>
-                    <h3 class="font-bold text-slate-800 mb-2">منصة حماية</h3>
-                    <p class="text-sm text-stone-600 mb-4">
-                        مبادرة للتحسيس والتوعية بالمخاطر الرقمية، تستهدف حماية الأطفال والشباب وتوعية الأسر المغربية
-                        بالاستخدام الآمن.
-                    </p>
-                    <a href="https://www.e-himaya.gov.ma/" target="_blank"
-                        class="text-blue-600 text-sm hover:underline font-semibold">
-                        زيارة المنصة <i class="fa-solid fa-arrow-up-right-from-square mr-1 text-xs"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- Final Message -->
-        <section
-            class="bg-gradient-to-l from-stone-800 to-stone-900 rounded-2xl p-8 text-center text-stone-200 shadow-lg">
-            <h2 class="text-xl font-bold text-white mb-2">رسالة الختام</h2>
-            <p class="text-lg max-w-2xl mx-auto italic">
-                "السيادة الرقمية ليست ترفاً تقنياً، بل هي درع الوطن في القرن الواحد والعشرين. والمواطنة الحقة تقتضي
-                وعياً بأن الهاتف الذي في جيبك هو بوابة للوطن، فلا تتركها مفتوحة."
+            <p class="about-text">
+                محامٍ مسجل بهيئة المحامين بفاس، وباحث في سلك الدكتوراه، أجمع بين <strong>الخبرة القانونية</strong>
+                و<strong>الكفاءة التقنية</strong> في مجال الأمن السيبراني والقانون الرقمي. بصفتي <strong>رئيس مرصد
+                    المحتوى الرقمي</strong>، أعمل على رصد وتحليل التهديدات الرقمية ومحاربة المحتوى الإجرامي على
+                الإنترنت. كما أنني مؤسس <strong>المعهد الدولي الخاص للتكنولوجيا</strong> الذي يهدف إلى تكوين الكفاءات
+                الوطنية في مجالات التكنولوجيا الحديثة والأمن السيبراني.
             </p>
+            <p class="about-text" style="margin-top: 16px;">
+                أؤمن بأن <strong>السيادة الرقمية</strong> ركيزة أساسية للأمن القومي، وأن التوازن بين حماية الحقوق
+                والحريات وملاحقة الجريمة الإلكترونية هو التحدي الجوهري لعصرنا. أنشط في مجال الإعلام الرقمي عبر منصات
+                إخبارية وطنية.
+            </p>
+        </section>
+
+        <!-- EXPERIENCE -->
+        <section class="section" id="experience">
+            <div class="section-header">
+                <div class="section-icon" style="background: var(--majorelle);"><i class="fa-solid fa-briefcase"></i>
+                </div>
+                <h2 class="section-title">الخبرات المهنية</h2>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-role">رئيس مرصد المحتوى الرقمي</div>
+                    <div class="timeline-company">مرصد المحتوى الرقمي - المغرب</div>
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> حالياً</div>
+                    <p class="timeline-desc">قيادة فريق متخصص في رصد وتحليل المحتوى الرقمي الإجرامي والعنيف. إعداد
+                        تقارير دورية حول التهديدات السيبرانية وتقديم توصيات للجهات المعنية. التنسيق مع المؤسسات الوطنية
+                        لتعزيز الأمن الرقمي المجتمعي.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-role">محامٍ</div>
+                    <div class="timeline-company">هيئة المحامين بفاس</div>
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> حالياً</div>
+                    <p class="timeline-desc">ممارسة مهنة المحاماة مع تخصص في القضايا المتعلقة بالجرائم الإلكترونية،
+                        حماية المعطيات الشخصية، والقانون الرقمي. الترافع أمام المحاكم في قضايا الابتزاز الإلكتروني وسرقة
+                        الهوية الرقمية.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-role">مؤسس ومدير المعهد الدولي الخاص للتكنولوجيا</div>
+                    <div class="timeline-company">المدرسة الدولية الخاصة للتكنولوجيا - فاس</div>
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> حالياً</div>
+                    <p class="timeline-desc">تأسيس وإدارة معهد متخصص في تكوين الشباب المغربي في مجالات التكنولوجيا
+                        الحديثة، الأمن السيبراني، والتحول الرقمي. تقديم شهادات معتمدة وبرامج تدريبية احترافية.</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-role">خبير سيبراني ومستشار تقني</div>
+                    <div class="timeline-company">استشارات مستقلة</div>
+                    <div class="timeline-date"><i class="fa-regular fa-calendar"></i> حالياً</div>
+                    <p class="timeline-desc">تقديم استشارات في مجال الأمن السيبراني للمؤسسات والشركات. إجراء اختبارات
+                        الاختراق وتقييم المخاطر. المشاركة كخبير في الندوات الوطنية والدولية حول السيادة الرقمية.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS -->
+        <section class="section" id="skills">
+            <div class="section-header">
+                <div class="section-icon" style="background: var(--terracotta);"><i
+                        class="fa-solid fa-chart-simple"></i></div>
+                <h2 class="section-title">المهارات والكفاءات</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-card-icon" style="background: rgba(0,98,65,0.1); color: var(--emerald);"><i
+                            class="fa-solid fa-gavel"></i></div>
+                    <h4>القانون والتشريع الرقمي</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">القانون الجنائي الرقمي</span>
+                        <span class="skill-tag">حماية المعطيات الشخصية</span>
+                        <span class="skill-tag">GDPR / 09-08</span>
+                        <span class="skill-tag">التوقيع الإلكتروني</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-card-icon" style="background: rgba(30,58,138,0.1); color: var(--majorelle);"><i
+                            class="fa-solid fa-shield-halved"></i></div>
+                    <h4>الأمن السيبراني</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">اختبارات الاختراق</span>
+                        <span class="skill-tag">تحليل التهديدات</span>
+                        <span class="skill-tag">الطب الشرعي الرقمي</span>
+                        <span class="skill-tag">أمن الشبكات</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-card-icon" style="background: rgba(194,65,12,0.1); color: var(--terracotta);"><i
+                            class="fa-solid fa-laptop-code"></i></div>
+                    <h4>التكنولوجيا والتطوير</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">تطوير الويب</span>
+                        <span class="skill-tag">إدارة الأنظمة</span>
+                        <span class="skill-tag">الحوسبة السحابية</span>
+                        <span class="skill-tag">الذكاء الاصطناعي</span>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-card-icon" style="background: rgba(124,58,237,0.1); color: #7c3aed;"><i
+                            class="fa-solid fa-chalkboard-user"></i></div>
+                    <h4>التكوين والإعلام</h4>
+                    <div class="skill-tags">
+                        <span class="skill-tag">التكوين المهني</span>
+                        <span class="skill-tag">الصحافة الرقمية</span>
+                        <span class="skill-tag">إدارة المحتوى</span>
+                        <span class="skill-tag">التواصل المؤسساتي</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS / CONTRIBUTIONS -->
+        <section class="section" id="projects">
+            <div class="section-header">
+                <div class="section-icon"
+                    style="background: linear-gradient(135deg, var(--emerald), var(--majorelle));"><i
+                        class="fa-solid fa-diagram-project"></i></div>
+                <h2 class="section-title">المساهمات والمشاريع</h2>
+            </div>
+            <div class="projects-grid">
+                <a href="nadwa_siyadah.html" class="project-card">
+                    <div class="project-card-top"
+                        style="background: linear-gradient(90deg, var(--emerald), var(--majorelle));"></div>
+                    <div class="project-card-body">
+                        <div class="project-card-icon" style="background: rgba(0,98,65,0.1); color: var(--emerald);"><i
+                                class="fa-solid fa-shield-halved"></i></div>
+                        <h3>ندوة السيادة الرقمية</h3>
+                        <p>مداخلة حول الجرائم الإلكترونية بين تحديات السيادة وحماية الحقوق - لوحة قيادة تفاعلية مع رسوم
+                            بيانية.</p>
+                        <span class="project-link" style="color: var(--emerald);">عرض التفاصيل <i
+                                class="fa-solid fa-arrow-left"></i></span>
+                    </div>
+                </a>
+                <a href="slide_pam.html" class="project-card">
+                    <div class="project-card-top"
+                        style="background: linear-gradient(90deg, var(--majorelle), var(--terracotta));"></div>
+                    <div class="project-card-body">
+                        <div class="project-card-icon"
+                            style="background: rgba(30,58,138,0.1); color: var(--majorelle);"><i
+                                class="fa-solid fa-presentation-screen fa-lg"></i></div>
+                        <h3>عرض الندوة التقديمي</h3>
+                        <p>شرائح العرض التقديمي لمداخلة السيادة الرقمية وتحديات الذكاء الاصطناعي - حزب الأصالة
+                            والمعاصرة.</p>
+                        <span class="project-link" style="color: var(--majorelle);">عرض الشرائح <i
+                                class="fa-solid fa-arrow-left"></i></span>
+                    </div>
+                </a>
+                <a href="https://fesnews.media" target="_blank" class="project-card">
+                    <div class="project-card-top"
+                        style="background: linear-gradient(90deg, var(--terracotta), #fbbf24);"></div>
+                    <div class="project-card-body">
+                        <div class="project-card-icon"
+                            style="background: rgba(194,65,12,0.1); color: var(--terracotta);"><i
+                                class="fa-solid fa-newspaper"></i></div>
+                        <h3>فاس نيوز ميديا</h3>
+                        <p>موقع إخباري وطني يغطي الأحداث المحلية والوطنية بمنظور رقمي حديث ومهني.</p>
+                        <span class="project-link" style="color: var(--terracotta);">زيارة الموقع <i
+                                class="fa-solid fa-arrow-up-right-from-square"></i></span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- EDUCATION -->
+        <section class="section" id="education">
+            <div class="section-header">
+                <div class="section-icon" style="background: #7c3aed;"><i class="fa-solid fa-graduation-cap"></i></div>
+                <h2 class="section-title">المسار التعليمي</h2>
+            </div>
+            <div class="edu-cards">
+                <div class="edu-card">
+                    <div class="edu-icon-box" style="background: rgba(0,98,65,0.1); color: var(--emerald);"><i
+                            class="fa-solid fa-book-open"></i></div>
+                    <div>
+                        <h4>باحث في سلك الدكتوراه</h4>
+                        <div class="edu-school">القانون الرقمي والأمن السيبراني</div>
+                        <div class="edu-date">حالياً</div>
+                    </div>
+                </div>
+                <div class="edu-card">
+                    <div class="edu-icon-box" style="background: rgba(30,58,138,0.1); color: var(--majorelle);"><i
+                            class="fa-solid fa-balance-scale"></i></div>
+                    <div>
+                        <h4>شهادة الأهلية لممارسة مهنة المحاماة</h4>
+                        <div class="edu-school">هيئة المحامين - فاس</div>
+                    </div>
+                </div>
+                <div class="edu-card">
+                    <div class="edu-icon-box" style="background: rgba(194,65,12,0.1); color: var(--terracotta);"><i
+                            class="fa-solid fa-certificate"></i></div>
+                    <div>
+                        <h4>شهادات في الأمن السيبراني</h4>
+                        <div class="edu-school">شهادات احترافية معتمدة (Microsoft وغيرها)</div>
+                    </div>
+                </div>
+            </div>
         </section>
 
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-stone-200 py-6 mt-12">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-sm text-stone-500">تم إعداد هذا العرض التفاعلي بناءً على مداخلة الأستاذ أحمد البقالي النمطة
-            </p>
-            <div class="mt-2 text-stone-400 text-xs">
-                <i class="fa-solid fa-code ml-1"></i>
-                ندوة السيادة الرقمية - حزب الأصالة والمعاصرة
-            </div>
+    <!-- ====== FOOTER ====== -->
+    <footer class="site-footer">
+        <div class="footer-name">أحمد البقالي النيمطة</div>
+        <p style="font-size: 14px;">محامٍ | خبير سيبراني | رئيس مرصد المحتوى الرقمي</p>
+        <div class="footer-links">
+            <a href="https://ma.linkedin.com/in/ahmed-%D8%A3%D8%AD%D9%85%D8%AF-namita-%D8%A7%D9%84%D9%86%D9%85%D9%8A%D8%B7%D8%A9-547a7588"
+                target="_blank"><i class="fa-brands fa-linkedin-in"></i> LinkedIn</a>
+            <a href="https://github.com/alfahmed1981" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+            <a href="nadwa_siyadah.html"><i class="fa-solid fa-shield-halved"></i> ندوة السيادة الرقمية</a>
         </div>
+        <p style="margin-top: 20px; font-size: 12px; color: rgba(255,255,255,0.4);">© 2025 - جميع الحقوق محفوظة</p>
     </footer>
 
-    <!-- JavaScript Implementation -->
+    <!-- Smooth Scroll & Active Nav -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-
-            // --- Chart 1: Breach Impact (Bar Chart) ---
-            const ctxBreach = document.getElementById('breachImpactChart').getContext('2d');
-            const breachChart = new Chart(ctxBreach, {
-                type: 'bar',
-                data: {
-                    labels: ['سرقة الهوية', 'الخسائر المالية', 'الابتزاز الإلكتروني', 'فقدان الثقة المؤسساتية'],
-                    datasets: [{
-                        label: 'مستوى الخطورة (تقديري)',
-                        data: [95, 80, 70, 85],
-                        backgroundColor: [
-                            'rgba(220, 38, 38, 0.8)',
-                            'rgba(234, 88, 12, 0.7)',
-                            'rgba(245, 158, 11, 0.7)',
-                            'rgba(71, 85, 105, 0.7)'
-                        ],
-                        borderColor: [
-                            'rgb(220, 38, 38)',
-                            'rgb(234, 88, 12)',
-                            'rgb(245, 158, 11)',
-                            'rgb(71, 85, 105)'
-                        ],
-                        borderWidth: 1,
-                        borderRadius: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    indexAxis: 'y',
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            rtl: true,
-                            bodyFont: {
-                                family: 'Tajawal'
-                            },
-                            titleFont: {
-                                family: 'Tajawal'
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            beginAtZero: true,
-                            max: 100,
-                            grid: {
-                                display: false
-                            }
-                        },
-                        y: {
-                            ticks: {
-                                font: {
-                                    family: 'Tajawal',
-                                    size: 13
-                                }
-                            }
-                        }
+        // Smooth scroll for nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                 }
             });
+        });
 
-            // --- Chart 2: Sovereignty (Doughnut Chart) ---
-            const ctxSov = document.getElementById('sovereigntyChart').getContext('2d');
-            const sovChart = new Chart(ctxSov, {
-                type: 'doughnut',
-                data: {
-                    labels: ['بيانات مخزنة وطنياً (سيادة كاملة)', 'بيانات في خوادم أجنبية (خطر السيادة)', 'بيانات سحابية مختلطة'],
-                    datasets: [{
-                        data: [35, 45, 20],
-                        backgroundColor: [
-                            'rgba(20, 184, 166, 0.8)',
-                            'rgba(220, 38, 38, 0.8)',
-                            'rgba(251, 191, 36, 0.8)'
-                        ],
-                        borderWidth: 0,
-                        hoverOffset: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                font: {
-                                    family: 'Tajawal'
-                                },
-                                usePointStyle: true,
-                                padding: 20
-                            }
-                        },
-                        tooltip: {
-                            rtl: true,
-                            bodyFont: {
-                                family: 'Tajawal'
-                            }
-                        }
-                    }
+        // Active nav on scroll
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 80;
+                if (scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
                 }
             });
-
-            // --- Interaction: Security vs Rights Slider ---
-            const slider = document.getElementById('balanceSlider');
-            const feedbackTitle = document.getElementById('feedbackTitle');
-            const feedbackText = document.getElementById('feedbackText');
-            const feedbackBox = document.getElementById('sliderFeedback');
-
-            function updateFeedback(value) {
-                feedbackBox.classList.remove('border-blue-500', 'border-red-500', 'border-amber-500');
-                feedbackTitle.classList.remove('text-blue-300', 'text-red-300', 'text-amber-300');
-
-                if (value < 30) {
-                    feedbackTitle.textContent = "خطر الفلتان والإفلات من العقاب";
-                    feedbackText.textContent = "عندما نبالغ في حماية الخصوصية على حساب الأمن، نمنح المجرمين 'ملاذات آمنة' داخل هواتفنا، وتصبح الدولة عاجزة عن حماية الضحايا. هذا ليس حلاً.";
-                    feedbackBox.classList.add('border-red-500');
-                    feedbackTitle.classList.add('text-red-300');
-                } else if (value > 70) {
-                    feedbackTitle.textContent = "خطر التضييق وانتهاك الحقوق";
-                    feedbackText.textContent = "المراقبة الشاملة قد تقضي على الجريمة، لكنها تقضي أيضاً على حرية المواطن. الأمن لا يعني تحويل الدولة إلى سجن رقمي كبير.";
-                    feedbackBox.classList.add('border-amber-500');
-                    feedbackTitle.classList.add('text-amber-300');
-                } else {
-                    feedbackTitle.textContent = "القانون الذكي (التوازن المنشود)";
-                    feedbackText.textContent = "الوضع المثالي الذي ندعو إليه: تقنيات متطورة لملاحقة الجريمة، مؤطرة بضمانات قضائية وقانونية صارمة تحمي بيانات الأبرياء. هنا تكمن السيادة الحقيقية.";
-                    feedbackBox.classList.add('border-blue-500');
-                    feedbackTitle.classList.add('text-blue-300');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
                 }
-            }
-
-            updateFeedback(slider.value);
-
-            slider.addEventListener('input', function (e) {
-                updateFeedback(e.target.value);
             });
+        });
+
+        // Animate timeline items on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateX(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.timeline-item, .skill-card, .project-card, .edu-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateX(20px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
         });
     </script>
 </body>
